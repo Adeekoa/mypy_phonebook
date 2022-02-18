@@ -1,0 +1,108 @@
+#Create a class to define the various methods of the MYPY phone book
+
+class Phonebook():
+    def __init__(self):
+        self.phone_book = {}
+    
+    #method, such that when called, will welcome the user and display the various functionalities of the phonebook
+    def directory(self):    
+        print('#########################\nMYPY PHONEBOOK\n#########################')
+        #show the various features of the phonebook and prompts the user to make a selection
+        user_entry = int(input("""Welcome to your MYPY Phonebook
+    
+        1 : Add  New Entry
+        2 : Delete Entry
+        3 : Update Entry
+        4 : Lookup Number
+        5 : Quit
+    
+        Please input your entry here : """))
+    
+        return user_entry
+
+    
+    #Create a method to add new contacts
+    def add_contact(self):
+        #prompt the user for the new phone no to add to the directory
+        phone_no = input('Please input Phone no : ')
+        
+        #confirm the phone number does not exist in the directory and update the directory accordingly
+        if phone_no not in self.phone_book:
+            name = input('Please input the contact name : ')
+            self.phone_book.update({phone_no:name})
+            print('Contact successfully saved')
+        
+        else:
+            print('Contact exists in your phonebook')
+    
+    #Create method to delete contacts from the directory
+    def delete_contact(self):
+        #prompt the user for the phone number to be deleted from the directory
+        phone_no = input('Please input the phone no you wish to delete : ')
+        
+        #confirm the phone_number exists in the directory
+        if phone_no in self.phone_book.keys():
+            del self.phone_book[phone_no] #removes contact from the directory
+            print('Phone number has been successfully deleted from your directory')
+            
+        else:
+            print('Phone no does not exist in your directory')
+            
+    #Create a method to update directory details
+    def update_contact(self):
+        #prompt user to input details of contact to be modified
+        old_number = input('Please enter the phone number of the contact you want to update\n')
+        
+        #confirm if old_number is in the directory and prompt user for new details
+        if old_number in self.phone_book:
+            new_number = input('Please enter the new phone number\n')
+            new_name = input('Please enter the name of the contact\n')
+            
+            #update the phonebook accordingly
+            self.phone_book.pop(old_number)
+            self.phone_book.update({new_number:new_name})
+            print('Directory updated successfully')
+        else:
+            print('Phone number does not exist in your directory')
+    
+    #Create method to look up contacts stored in the directory
+    def lookup(self):
+        
+        #prompt user to input the phone number of contact to lookup
+        phone_no = input('Please input phone number : ')
+        
+        #confirm if phone number is in the directory and print the details
+        if phone_no in self.phone_book:
+            print(phone_no, ':',  self.phone_book[phone_no])
+        else:
+            print('Phone number does not exist in your directory')
+    
+    #create method to enable users access the various functionalities of the phonebook
+    def mypy(self):
+        while True:
+            user_entry = self.directory()
+            
+            if user_entry == 1:
+                self.add_contact()
+            
+            elif user_entry == 2:
+                self.delete_contact()
+            
+            elif user_entry == 3:
+                self.update_contact()
+            
+            elif user_entry == 4:
+                self.lookup()
+            elif user_entry == 5:
+                break
+            
+            else:
+                print('Invalid option, please choose a valid number from the options below')
+                
+
+#Instantiate the class
+mypy_phonebook = Phonebook()
+
+#Run the mypy phonebook program
+mypy_phonebook.mypy()
+        
